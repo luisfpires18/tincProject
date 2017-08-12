@@ -11,6 +11,10 @@ namespace tincApi.App_Start
             CreateMap<DTO.Desporto, Models.Desporto>();
             CreateMap<Models.Desporto, DTO.Desporto>();
 
+            // Equipa
+            CreateMap<DTO.Equipa, Models.Equipa>();
+            CreateMap<Models.Equipa, DTO.Equipa>();
+
 
 
 
