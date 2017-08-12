@@ -1,0 +1,82 @@
+﻿@model tincApi.Models.Categoria
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Genero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoAtleta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoAtleta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vencedores)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vencedores)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdadeMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdadeMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdadeMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdadeMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsavel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Responsavel)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
