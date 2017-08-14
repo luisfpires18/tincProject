@@ -1,4 +1,4 @@
-﻿@model IEnumerable<tincApi.Models.Desporto>
+﻿@model IEnumerable<tincApi.Models.User>
 
 @{
     ViewBag.Title = "Index";
@@ -14,11 +14,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Responsavel)
+            @Html.DisplayNameFor(model => model.Apelido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
         </th>
         <th></th>
     </tr>
@@ -28,11 +31,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.Responsavel)
+            @Html.DisplayFor(modelItem => item.Apelido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

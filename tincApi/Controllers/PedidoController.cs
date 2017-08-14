@@ -18,7 +18,7 @@ namespace tincApi.Controllers
         // GET: Pedido
         public ActionResult Index()
         {
-            return View(db.Pedidoes.ToList());
+            return View(db.Pedido.ToList());
         }
 
         // GET: Pedido/Details/5
@@ -28,7 +28,7 @@ namespace tincApi.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pedido pedido = db.Pedidoes.Find(id);
+            Pedido pedido = db.Pedido.Find(id);
             if (pedido == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace tincApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Pedidoes.Add(pedido);
+                db.Pedido.Add(pedido);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace tincApi.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pedido pedido = db.Pedidoes.Find(id);
+            Pedido pedido = db.Pedido.Find(id);
             if (pedido == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace tincApi.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pedido pedido = db.Pedidoes.Find(id);
+            Pedido pedido = db.Pedido.Find(id);
             if (pedido == null)
             {
                 return HttpNotFound();
@@ -110,8 +110,8 @@ namespace tincApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Pedido pedido = db.Pedidoes.Find(id);
-            db.Pedidoes.Remove(pedido);
+            Pedido pedido = db.Pedido.Find(id);
+            db.Pedido.Remove(pedido);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

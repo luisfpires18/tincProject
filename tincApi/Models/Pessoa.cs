@@ -18,7 +18,9 @@ namespace tincApi.Models
         public string Foto { get; set; }
 
         public virtual ICollection<Inscricao> Inscricoes { get; set; }
-       // public virtual ICollection<Management> Managements { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
+
         public virtual Equipa Equipa { get; set; }
 
 
