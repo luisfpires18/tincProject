@@ -39,6 +39,7 @@ namespace tincApi.Controllers
         // GET: Categoria/Create
         public ActionResult Create()
         {
+            ViewBag.ProvaID = new SelectList(db.Prova.ToList(), "ID", "Nome");
             return View();
         }
 
@@ -47,7 +48,7 @@ namespace tincApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Genero,TipoAtleta,Vencedores,IdadeMin,IdadeMax,Nome,Descricao,Responsavel")] Categoria categoria)
+        public ActionResult Create(Categoria categoria)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +72,7 @@ namespace tincApi.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ProvaID = new SelectList(db.Prova.ToList(), "ID", "Nome");
             return View(categoria);
         }
 

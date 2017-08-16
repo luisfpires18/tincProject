@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace tincApi.Models
 {
@@ -19,8 +20,15 @@ namespace tincApi.Models
 
         public string Notas { get; set; }
 
+        public int CategoriaID { get; set; }
+
+        public int PessoaID { get; set; }
+
+        // Navigation;
         public virtual Categoria Categoria { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
+
+        public virtual ICollection<Extra> Extras { get; set; }
     }
 }

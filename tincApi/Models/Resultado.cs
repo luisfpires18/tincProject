@@ -2,10 +2,14 @@
 
 namespace tincApi.Models
 {
-    public class Resultado : Organizacao
+    public class Resultado
     {
         public int ID { get; set; }
-        public virtual Prova Prova { get; set; }
+        public int PessoaID { get; set; }
+        public int CategoriaID { get; set; }
+
+        // Navigation;
+        public virtual Pessoa Pessoa { get; set; }
         public virtual Categoria Categoria { get; set; }
     }
 }

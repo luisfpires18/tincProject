@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using tincApi.DAL;
 using tincApi.Models;
+using tincApi.ViewModels;
 
 namespace tincApi.Controllers
 {
@@ -15,10 +16,33 @@ namespace tincApi.Controllers
     {
         private TincContext db = new TincContext();
 
-        // GET: Evento
-        public ActionResult Index()
+        public ActionResult Index(int? id, int? provaID, int? categoriaID)
         {
-            return View(db.Evento.ToList());
+            var viewModel = new EventoData();
+            viewModel.Eventos = db.Evento
+                .Include(e => e.Provas)
+                .OrderBy(e => e.Nome).ToList();
+
+            if (id != null)
+            {
+                ViewBag.EventoID = id.Value;
+
+                viewModel.Provas = viewModel.Eventos
+                                            .Single(e => e.ID == id.Value).Provas;
+            }
+            if (provaID != null)
+            {
+                ViewBag.ProvaID = provaID.Value;
+                viewModel.Categorias = viewModel.Provas
+                                                .Single(p => p.ID == provaID.Value).Categorias;
+            }
+            if (categoriaID != null)
+            {
+                ViewBag.CategoriaID = categoriaID.Value;
+                viewModel.Inscricoes = viewModel.Categorias
+                                                .Single(c => c.ID == categoriaID.Value).Inscricoes;
+            }
+            return View(viewModel);
         }
 
         // GET: Evento/Details/5
@@ -39,6 +63,7 @@ namespace tincApi.Controllers
         // GET: Evento/Create
         public ActionResult Create()
         {
+            ViewBag.DesportoID = new SelectList(db.Desporto.ToList(), "ID", "Nome");
             return View();
         }
 
@@ -47,7 +72,7 @@ namespace tincApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Local,Website,DataEvento,Foto,Ficheiro,Inscricoes,Nome,Descricao,Responsavel")] Evento evento)
+        public ActionResult Create(Evento evento)
         {
             if (ModelState.IsValid)
             {
@@ -71,6 +96,7 @@ namespace tincApi.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DesportoID = new SelectList(db.Desporto.ToList(), "ID", "Nome");
             return View(evento);
         }
 

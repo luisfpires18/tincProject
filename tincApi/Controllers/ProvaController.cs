@@ -39,6 +39,7 @@ namespace tincApi.Controllers
         // GET: Prova/Create
         public ActionResult Create()
         {
+            ViewBag.EventoID = new SelectList(db.Evento.ToList(), "ID", "Nome");
             return View();
         }
 
@@ -47,7 +48,7 @@ namespace tincApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Distancia,Preco,Nome,Descricao,Responsavel")] Prova prova)
+        public ActionResult Create(Prova prova)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +56,7 @@ namespace tincApi.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.EventoID = new SelectList(db.Evento.ToList(), "ID", "Nome");
             return View(prova);
         }
 
@@ -79,7 +80,7 @@ namespace tincApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Distancia,Preco,Nome,Descricao,Responsavel")] Prova prova)
+        public ActionResult Edit(Prova prova)
         {
             if (ModelState.IsValid)
             {

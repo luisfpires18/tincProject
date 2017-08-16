@@ -7,9 +7,10 @@ namespace tincApi.Models
     {
         public int ID { get; set; }
         public float Distancia { get; set; }
-        public float Preco { get; set; }
+        public int EventoID { get; set; }
+
+        // Navigation;
         public virtual Evento Evento { get; set; }
         public virtual ICollection<Categoria> Categorias { get; set; }
-        public virtual ICollection<Resultado> Resultados { get; set; }
     }
 }

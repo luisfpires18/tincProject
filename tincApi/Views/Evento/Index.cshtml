@@ -1,81 +1,115 @@
-﻿@model IEnumerable<tincApi.Models.Evento>
+﻿@model tincApi.ViewModels.EventoData
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Eventos";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Local)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Website)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataEvento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Foto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ficheiro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Inscricoes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Responsavel)
-        </th>
+        <th>Nome</th>
+        <th>Local</th>
+        <th>Data</th>
+        <th>Desporto</th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Local)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Website)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataEvento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Foto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ficheiro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Inscricoes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Responsavel)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.Eventos)
+    {
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Local)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEvento)
+            </td>
+            <td>
+                @if (item.Desporto != null)
+                {
+                    @item.Desporto.Nome
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.ID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+@if (Model.Provas != null)
+{
+    <h3>Provas do Evento</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Distancia</th>
+        </tr>
+        @foreach (var item in Model.Provas)
+        {
+            string selectedRow = "";
+            if (item.ID == ViewBag.ProvaID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "Index", new { ProvaID = item.ID })
+                </td>
+                <td>
+                    @item.Nome
+                </td>
+                <td>
+                    @item.Distancia
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.Categorias != null)
+{
+    <h3>
+        Categorias da Prova
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Nome</th>
+            <th>Tipo de Atleta</th>
+            <th>Género</th>
+            <th>Idades</th>
+            <th>Nº Vencedores</th>
+        </tr>
+        @foreach (var item in Model.Categorias)
+        {
+            <tr>
+                <td>
+                    @item.Nome
+                </td>
+                <td>
+                    @item.TipoAtleta
+                </td>
+                <td>
+                    @item.Genero
+                </td>
+                <td>
+                    @item.IdadeMin - @item.IdadeMax
+                </td>
+                <td>
+                    @item.Vencedores
+                </td>
+            </tr>
+        }
+    </table>
+}

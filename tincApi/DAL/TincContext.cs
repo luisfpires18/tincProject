@@ -46,11 +46,23 @@ namespace tincApi.DAL
                     .MapRightKey("PessoaID")
                     .ToTable("Gestao"));
 
-            modelBuilder.Entity<User>()
-                .Property(e => e.Username)
-                .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName,
-                    new IndexAnnotation(new IndexAttribute()));
+            modelBuilder.Entity<Extra>()
+                .HasMany(e => e.Inscricoes).WithMany(i => i.Extras)
+                .Map(t => t.MapLeftKey("ExtraID")
+                    .MapRightKey("InscricaoID")
+                    .ToTable("InscricaoExtra"));
+
+            //modelBuilder.Entity<Resultado>()
+            //    .HasRequired(r => r.Categoria)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Resultado>()
+            //    .HasRequired(r => r.Prova)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+
 
         }
         

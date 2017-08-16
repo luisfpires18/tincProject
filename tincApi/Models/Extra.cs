@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace tincApi.Models
 {
@@ -8,6 +9,11 @@ namespace tincApi.Models
 
         public float Preco { get; set; }
 
+        public int EventoID { get; set; }
+
+        // Navigation;
         public virtual Evento Evento { get; set; }
+
+        public virtual ICollection<Inscricao> Inscricoes { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace tincApi.Controllers
             if (utilizador != null)
             {
                 Session["UserID"] = utilizador.ID.ToString();
-                Session["Username"] = utilizador.Username.ToString();
+                Session["Username"] = utilizador.Username;
                 return RedirectToAction("LoggedIn");
             }
             else
