@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -12,7 +13,6 @@ namespace tincApi.Controllers
     public class UserController : Controller
     {
         private TincContext db = new TincContext();
-
         [HttpGet]
         public ActionResult Index()
         {
@@ -47,7 +47,7 @@ namespace tincApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult Login(HttpRequestMessage request, User user)
         {
             var utilizador = db.User.Single(u => u.Username == user.Username && u.Password == user.Password);
             if (utilizador != null)

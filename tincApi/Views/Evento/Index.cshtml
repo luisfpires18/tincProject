@@ -94,8 +94,9 @@
         @foreach (var item in Model.Categorias)
         {
             <tr>
+
                 <td>
-                    @item.Nome
+                    @Html.ActionLink(item.Nome, "Index", "Inscricao", new { CategoriaID = item.ID }, null)
                 </td>
                 <td>
                     @item.TipoAtleta

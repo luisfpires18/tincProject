@@ -3,7 +3,7 @@ namespace tincApi.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class v0 : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,8 @@ namespace tincApi.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Genero = c.String(),
-                        TipoAtleta = c.String(),
+                        Genero = c.Int(nullable: false),
+                        TipoAtleta = c.Int(nullable: false),
                         Vencedores = c.Int(nullable: false),
                         IdadeMin = c.Int(nullable: false),
                         IdadeMax = c.Int(nullable: false),
@@ -114,7 +114,7 @@ namespace tincApi.Migrations
                         Nome = c.String(),
                         Email = c.String(),
                         Contacto = c.String(),
-                        Genero = c.String(),
+                        Genero = c.Int(nullable: false),
                         Cidade = c.String(),
                         Nacionalidade = c.String(),
                         DataNascimento = c.DateTime(nullable: false),

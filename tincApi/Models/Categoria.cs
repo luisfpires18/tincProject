@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using tincApi.Models.Enum;
 
 namespace tincApi.Models
 {
+
     public class Categoria : Organizacao
     {
         public int ID { get; set; }
 
-        public string Genero { get; set; }
+        public Genero Genero { get; set; }
 
-        public string TipoAtleta { get; set; }
+        public Atleta TipoAtleta { get; set; }
 
         public int Vencedores { get; set; }
 

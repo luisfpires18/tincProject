@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using tincApi.Models.Enum;
 
 namespace tincApi.Models
 {
-    public enum TShirt { XXL = 6, XL = 5, L = 4, M = 3, S = 2, XS = 1, XXS = 0 }
 
     public class Inscricao
     {
@@ -12,6 +13,8 @@ namespace tincApi.Models
 
         public TShirt Tamanho { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DataInscricao { get; set; }
 
         public string RegistadoPor { get; set; }

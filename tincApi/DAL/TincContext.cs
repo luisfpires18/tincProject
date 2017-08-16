@@ -7,7 +7,6 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 using tincApi.Models;
-
 namespace tincApi.DAL
 {
     public class TincContext : DbContext
@@ -29,6 +28,8 @@ namespace tincApi.DAL
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Pedido> Pedido { get; set; }
+
+       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

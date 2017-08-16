@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using tincApi.Models;
+using tincApi.Models.Enum;
 
 namespace tincApi.Migrations
 {
@@ -35,7 +36,7 @@ namespace tincApi.Migrations
                 }
             };
 
-            desportos.ForEach(d => context.Desporto.Add(d));
+            desportos.ForEach(d => context.Desporto.AddOrUpdate(d));
             context.SaveChanges();
 
             var eventos = new List<Evento>
@@ -66,7 +67,7 @@ namespace tincApi.Migrations
                 }
             };
 
-            eventos.ForEach(e => context.Evento.Add(e));
+            eventos.ForEach(e => context.Evento.AddOrUpdate(e));
             context.SaveChanges();
 
             var provas = new List<Prova>
@@ -109,7 +110,7 @@ namespace tincApi.Migrations
                 }
             };
 
-            provas.ForEach(p => context.Prova.Add(p));
+            provas.ForEach(p => context.Prova.AddOrUpdate(p));
             context.SaveChanges();
 
             var categorias = new List<Categoria>
@@ -119,10 +120,10 @@ namespace tincApi.Migrations
                     ID = 1,
                     Nome="Familia",
                     Descricao = "",
-                    Genero = "M/F",
+                    Genero = Genero.Ambos,
                     IdadeMin = 6,
                     IdadeMax = 60,
-                    TipoAtleta = "Caminhante",
+                    TipoAtleta = Atleta.Caminhante,
                     Vencedores = 3,
                     ProvaID = 1
                 },
@@ -131,10 +132,10 @@ namespace tincApi.Migrations
                     ID = 2,
                     Nome="Amigos",
                     Descricao = "",
-                    Genero = "M/F",
+                    Genero = Genero.Ambos,
                     IdadeMin = 6,
                     IdadeMax = 60,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 2
                 },
@@ -143,10 +144,10 @@ namespace tincApi.Migrations
                     ID = 3,
                     Nome="Infantil",
                     Descricao = "",
-                    Genero = "M",
+                    Genero = Genero.Masculino,
                     IdadeMin = 6,
                     IdadeMax = 12,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -155,10 +156,10 @@ namespace tincApi.Migrations
                     ID = 4,
                     Nome="Infantil",
                     Descricao = "",
-                    Genero = "F",
+                    Genero = Genero.Feminino,
                     IdadeMin = 6,
                     IdadeMax = 12,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -167,10 +168,10 @@ namespace tincApi.Migrations
                     ID = 5,
                     Nome="Junior",
                     Descricao = "",
-                    Genero = "M",
+                    Genero = Genero.Masculino,
                     IdadeMin = 13,
                     IdadeMax = 17,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -179,10 +180,10 @@ namespace tincApi.Migrations
                     ID = 6,
                     Nome="Junior",
                     Descricao = "",
-                    Genero = "F",
+                    Genero = Genero.Feminino,
                     IdadeMin = 13,
                     IdadeMax = 17,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -191,10 +192,10 @@ namespace tincApi.Migrations
                     ID = 7,
                     Nome="Senior",
                     Descricao = "",
-                    Genero = "M",
+                    Genero = Genero.Masculino,
                     IdadeMin = 18,
                     IdadeMax = 29,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -203,10 +204,10 @@ namespace tincApi.Migrations
                     ID = 8,
                     Nome="Senior",
                     Descricao = "",
-                    Genero = "F",
+                    Genero = Genero.Feminino,
                     IdadeMin = 18,
                     IdadeMax = 29,
-                    TipoAtleta = "Corredor",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -215,10 +216,10 @@ namespace tincApi.Migrations
                     ID = 9,
                     Nome="Veteranos",
                     Descricao = "",
-                    Genero = "M",
+                    Genero = Genero.Masculino,
                     IdadeMin = 30,
                     IdadeMax = 55,
-                    TipoAtleta = "Caminhante",
+                    TipoAtleta = Atleta.Caminhante,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -227,10 +228,10 @@ namespace tincApi.Migrations
                     ID = 10,
                     Nome="Veteranos",
                     Descricao = "",
-                    Genero = "F",
+                    Genero = Genero.Feminino,
                     IdadeMin = 30,
                     IdadeMax = 55,
-                    TipoAtleta = "Caminhante",
+                    TipoAtleta = Atleta.Caminhante,
                     Vencedores = 3,
                     ProvaID = 3
                 },
@@ -239,18 +240,77 @@ namespace tincApi.Migrations
                     ID = 11,
                     Nome="Volta ao IPB",
                     Descricao = "",
-                    Genero = "M/F",
+                    Genero = Genero.Ambos,
                     IdadeMin = 30,
                     IdadeMax = 55,
-                    TipoAtleta = "Estudante",
+                    TipoAtleta = Atleta.Corredor,
                     Vencedores = 3,
                     ProvaID = 4
                 }
 
             };
 
-            categorias.ForEach(c => context.Categoria.Add(c));
+            categorias.ForEach(c => context.Categoria.AddOrUpdate(c));
             context.SaveChanges();
+
+            var equipas = new List<Equipa>
+            {
+                new Equipa{ ID = 1, Nome = "Individual"},
+                new Equipa{ ID = 2, Nome = "GD Bragança"},
+                new Equipa{ ID = 3, Nome = "SL Benfica"},
+                new Equipa{ ID = 4, Nome = "FC Porto"},
+                new Equipa{ ID = 5, Nome = "Sporting CP"},
+                new Equipa{ ID = 6, Nome = "SC Braga"},
+                new Equipa{ ID = 7, Nome = "Vitoria SC"},
+                new Equipa{ ID = 8, Nome = "Rio Ave FC"}
+            };
+            equipas.ForEach(e => context.Equipa.AddOrUpdate(e));
+            context.SaveChanges();
+
+            var pessoas = new List<Pessoa>
+            {
+                new Pessoa
+                {
+                    ID= 1,
+                    Nome = "Luis Pires",
+                    DataNascimento = new DateTime(1992,09,18),
+                    Cidade = "Bragança",
+                    Contacto = "936854524",
+                    Email = "luis.pires@itsector.pt",
+                    EquipaID = 3,
+                    Nacionalidade = "Portuguesa",
+                    Genero = Sexo.Masculino
+                },
+                new Pessoa
+                {
+                    ID= 2,
+                    Nome = "Daniel Cidre",
+                    DataNascimento = new DateTime(1995,08,20),
+                    Cidade = "Valpaços",
+                    Contacto = "912121211",
+                    Email = "danielcidre@aestig.pt",
+                    EquipaID = 4,
+                    Nacionalidade = "Francesa",
+                    Genero = Sexo.Masculino
+                },
+                new Pessoa
+                {
+                    ID= 3,
+                    Nome = "José Rocha",
+                    DataNascimento = new DateTime(1994,06,02),
+                    Cidade = "Lousada",
+                    Contacto = "912121211",
+                    Email = "jose.rocha@itsector.pt",
+                    EquipaID = 4,
+                    Nacionalidade = "Portuguesa",
+                    Genero = Sexo.Masculino
+                }
+            };
+
+            pessoas.ForEach(p => context.Pessoa.AddOrUpdate(p));
+            context.SaveChanges();
+
+
 
         }
     }

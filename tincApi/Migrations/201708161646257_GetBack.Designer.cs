@@ -7,13 +7,13 @@ namespace tincApi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class GetBack : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(GetBack));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708161330105_InitialMigration"; }
+            get { return "201708161646257_GetBack"; }
         }
         
         string IMigrationMetadata.Source

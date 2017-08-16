@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using tincApi.DAL;
 using tincApi.Models;
@@ -18,7 +14,8 @@ namespace tincApi.Controllers
         // GET: Categoria
         public ActionResult Index()
         {
-            return View(db.Categoria.ToList());
+            var categoria = db.Categoria.Include(c => c.Prova);
+            return View(categoria.ToList());
         }
 
         // GET: Categoria/Details/5
@@ -39,7 +36,7 @@ namespace tincApi.Controllers
         // GET: Categoria/Create
         public ActionResult Create()
         {
-            ViewBag.ProvaID = new SelectList(db.Prova.ToList(), "ID", "Nome");
+            ViewBag.ProvaID = new SelectList(db.Prova, "ID", "Nome");
             return View();
         }
 
@@ -48,7 +45,7 @@ namespace tincApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Categoria categoria)
+        public ActionResult Create([Bind(Include = "ID,Genero,TipoAtleta,Vencedores,IdadeMin,IdadeMax,ProvaID,Nome,Descricao,Responsavel")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +54,7 @@ namespace tincApi.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ProvaID = new SelectList(db.Prova, "ID", "Nome", categoria.ProvaID);
             return View(categoria);
         }
 
@@ -72,7 +70,7 @@ namespace tincApi.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProvaID = new SelectList(db.Prova.ToList(), "ID", "Nome");
+            ViewBag.ProvaID = new SelectList(db.Prova, "ID", "Nome", categoria.ProvaID);
             return View(categoria);
         }
 
@@ -81,7 +79,7 @@ namespace tincApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Genero,TipoAtleta,Vencedores,IdadeMin,IdadeMax,Nome,Descricao,Responsavel")] Categoria categoria)
+        public ActionResult Edit([Bind(Include = "ID,Genero,TipoAtleta,Vencedores,IdadeMin,IdadeMax,ProvaID,Nome,Descricao,Responsavel")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
@@ -89,6 +87,7 @@ namespace tincApi.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProvaID = new SelectList(db.Prova, "ID", "Nome", categoria.ProvaID);
             return View(categoria);
         }
 

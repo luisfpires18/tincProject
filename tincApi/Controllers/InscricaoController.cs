@@ -8,131 +8,134 @@ using System.Web;
 using System.Web.Mvc;
 using tincApi.DAL;
 using tincApi.Models;
-using tincApi.ViewModels;
 
 namespace tincApi.Controllers
 {
-    public class EventoController : Controller
+    public class InscricaoController : Controller
     {
         private TincContext db = new TincContext();
 
-        public ActionResult Index(int? id, int? provaID)
+        // GET: Inscricao
+        public ActionResult Index(int? CategoriaID)
         {
-            var viewModel = new EventoData();
-            viewModel.Eventos = db.Evento
-                .Include(e => e.Provas)
-                .OrderBy(e => e.Nome).ToList();
-
-            if (id != null)
+            if (CategoriaID != null)
             {
-                ViewBag.EventoID = id.Value;
+                var inscricao = db.Inscricao
+                    .Include(i => i.Categoria)
+                    .Include(i => i.Pessoa)
+                    .Where(i => i.CategoriaID == CategoriaID);
 
-                viewModel.Provas = viewModel.Eventos
-                                            .Single(e => e.ID == id.Value).Provas;
+                return View(inscricao.ToList());
             }
-            if (provaID != null)
+            else
             {
-                ViewBag.ProvaID = provaID.Value;
-                viewModel.Categorias = viewModel.Provas
-                                                .Single(p => p.ID == provaID.Value).Categorias;
+                var inscricao = db.Inscricao.Include(i => i.Categoria).Include(i => i.Pessoa);
+                return View(inscricao.ToList());
             }
 
-            return View(viewModel);
+            
         }
 
-        // GET: Evento/Details/5
+        // GET: Inscricao/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Evento evento = db.Evento.Find(id);
-            if (evento == null)
+            Inscricao inscricao = db.Inscricao.Find(id);
+            if (inscricao == null)
             {
                 return HttpNotFound();
             }
-            return View(evento);
+            return View(inscricao);
         }
 
-        // GET: Evento/Create
+        // GET: Inscricao/Create
         public ActionResult Create()
         {
-            ViewBag.DesportoID = new SelectList(db.Desporto.ToList(), "ID", "Nome");
+            ViewBag.CategoriaID = new SelectList(db.Categoria, "ID", "Nome");
+            ViewBag.PessoaID = new SelectList(db.Pessoa, "ID", "Nome");
             return View();
         }
 
-        // POST: Evento/Create
+        // POST: Inscricao/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Evento evento)
+        public ActionResult Create(Inscricao inscricao)
         {
+            inscricao.DataInscricao = DateTime.Now;
             if (ModelState.IsValid)
             {
-                db.Evento.Add(evento);
+                db.Inscricao.Add(inscricao);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(evento);
+            ViewBag.CategoriaID = new SelectList(db.Categoria, "ID", "Nome", inscricao.CategoriaID);
+            ViewBag.PessoaID = new SelectList(db.Pessoa, "ID", "Nome", inscricao.PessoaID);
+            return View(inscricao);
         }
 
-        // GET: Evento/Edit/5
+        // GET: Inscricao/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Evento evento = db.Evento.Find(id);
-            if (evento == null)
+            Inscricao inscricao = db.Inscricao.Find(id);
+            if (inscricao == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DesportoID = new SelectList(db.Desporto.ToList(), "ID", "Nome");
-            return View(evento);
+            ViewBag.CategoriaID = new SelectList(db.Categoria, "ID", "Nome", inscricao.CategoriaID);
+            ViewBag.PessoaID = new SelectList(db.Pessoa, "ID", "Nome", inscricao.PessoaID);
+            return View(inscricao);
         }
 
-        // POST: Evento/Edit/5
+        // POST: Inscricao/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Local,Website,DataEvento,Foto,Ficheiro,Inscricoes,Nome,Descricao,Responsavel")] Evento evento)
+        public ActionResult Edit([Bind(Include = "ID,Tamanho,DataInscricao,RegistadoPor,Estado,Notas,CategoriaID,PessoaID")] Inscricao inscricao)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(evento).State = EntityState.Modified;
+                db.Entry(inscricao).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(evento);
+            ViewBag.CategoriaID = new SelectList(db.Categoria, "ID", "Nome", inscricao.CategoriaID);
+            ViewBag.PessoaID = new SelectList(db.Pessoa, "ID", "Nome", inscricao.PessoaID);
+            return View(inscricao);
         }
 
-        // GET: Evento/Delete/5
+        // GET: Inscricao/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Evento evento = db.Evento.Find(id);
-            if (evento == null)
+            Inscricao inscricao = db.Inscricao.Find(id);
+            if (inscricao == null)
             {
                 return HttpNotFound();
             }
-            return View(evento);
+            return View(inscricao);
         }
 
-        // POST: Evento/Delete/5
+        // POST: Inscricao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Evento evento = db.Evento.Find(id);
-            db.Evento.Remove(evento);
+            Inscricao inscricao = db.Inscricao.Find(id);
+            db.Inscricao.Remove(inscricao);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
