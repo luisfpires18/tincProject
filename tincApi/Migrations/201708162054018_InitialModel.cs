@@ -3,7 +3,7 @@ namespace tincApi.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class v0 : DbMigration
+    public partial class InitialModel : DbMigration
     {
         public override void Up()
         {
@@ -147,6 +147,9 @@ namespace tincApi.Migrations
                         Username = c.String(nullable: false, maxLength: 50),
                         Password = c.String(nullable: false),
                         ConfirmPassword = c.String(),
+                        HashedPassword = c.String(),
+                        Salt = c.String(),
+                        IsLocked = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
